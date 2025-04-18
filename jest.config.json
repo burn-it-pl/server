@@ -1,0 +1,10 @@
+{
+  "verbose": false,
+  "coverageProvider": "v8",
+  "testEnvironment": "node",
+  "preset": "ts-jest",
+  "testMatch": ["<rootDir>/tests/unit/**/*.test.ts"],
+  "coveragePathIgnorePatterns": ["/node_modules/"],
+  "collectCoverageFrom": ["<rootDir>/src/**/*.ts"],
+  "setupFilesAfterEnv": []
+}
