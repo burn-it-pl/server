@@ -28,7 +28,14 @@ export class FirebaseClientManager {
     const organizations: string[] = Object.keys(config);
 
     for (const client_id of organizations) {
-      const credential = admin.credential.cert(config[client_id]);
+
+      const clientConfig = config[client_id];
+      if (typeof clientConfig !== "object") {
+        throw new Error(`[FirebaseClientManager] Config for "${client_id}" is invalid`);
+      }
+      clientConfig.privateKey = clientConfig.privateKey.replace(/\\n/g, "\n");
+
+      const credential = admin.credential.cert(clientConfig);
       const credentials: AppOptions = { credential };
       this.clients[client_id] = admin.initializeApp(credentials, client_id);
     }

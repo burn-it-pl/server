@@ -61,10 +61,6 @@ describe("Given a signUpInteractor", () => {
       lastName: commonUserPrisma.user_last_name,
       email: commonUserPrisma.user_email,
       terms: true,
-      notifications: false,
-      clientId,
-      phoneNumber: null,
-      identificationNumber: null,
     };
 
     userMock.mockImplementation(() => {

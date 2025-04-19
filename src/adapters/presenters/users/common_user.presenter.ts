@@ -5,10 +5,7 @@ export const presentCommonUser = (commonUser: CommonUserEntity): UserResponse =>
   return {
     ...presentUserBase(commonUser),
     username: commonUser.getUsername(),
-    identificationNumber: commonUser.getIdentificationNumber(),
-    phoneNumber: commonUser.getPhoneNumber(),
     terms: commonUser.getTerms(),
-    notifications: commonUser.getNotifications(),
     isActive: commonUser.getIsActive(),
     uid: commonUser.getUid(),
     authProvider: commonUser.getAuthProvider(),

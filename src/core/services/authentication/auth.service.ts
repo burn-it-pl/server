@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   private async getAuthService(_client: PrismaClient, _clientId: string): Promise<BaseAuthService> {
-    // const authProvider = await findConfigurationService(client, { key: "", clientId });
+    // const authProvider = await findConxxfigurationService(client, { key: "", clientId });
     // if(!authProvider) {
     //   throw new NotFoundError("");
     // }
@@ -36,6 +36,7 @@ export class AuthService {
 
   public async validateToken(client: PrismaClient, payload: ValidateTokenPayload): Promise<AuthUser | null> {
     const { email, clientId } = payload;
+    // console.log("=>(auth.service.ts:40) client", client);
     const authService = await this.getAuthService(client, clientId);
     const user = await authService.validateToken(payload);
     const hasValidAuthId = user && user.authId;

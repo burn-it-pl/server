@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import NodeCache from "node-cache";
 
-import { CacheParameters } from "../../entities/cache/organization_cache.entity";
+import { CacheParameters } from "../../entities/cache/cache.entity";
 
 export class CacheService {
   private readonly cache: NodeCache;

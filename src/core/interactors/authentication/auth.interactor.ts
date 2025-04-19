@@ -37,6 +37,7 @@ export const signUpInteractor = async (
 ): Promise<CommonUserEntity> => {
   const response = await onSession(async (client: PrismaClient) => {
     const user = await AuthService.getInstance().validateToken(client, { clientId, accessToken, email: data.email });
+
     if (!user) {
       throw new UnauthorizedError(ErrorMessage.UNAUTHORIZED);
     }
@@ -47,16 +48,12 @@ export const signUpInteractor = async (
         user_first_name: data.firstName,
         user_last_name: data.lastName,
         user_email: data.email,
-        user_identification_number: data.username,
-        user_phone_number: data.username,
         user_terms: data.terms,
-        user_notifications: data.notifications,
         user_is_active: true,
         user_uid: user.authId,
-        user_role: UserRole.COMMON_USER,
+        user_role: UserRole.GUEST_USER,
         user_auth_provider: AuthProvider.FIREBASE,
         user_auth_type: AuthType.EMAIL_AND_PASSWORD,
-        user_organization_client_id: clientId,
       },
     });
 

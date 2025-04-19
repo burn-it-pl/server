@@ -8,10 +8,10 @@ import {
 import { SignUpUser } from "../../../../core/types/authentication/user.type";
 import { HttpStatusCode } from "../../../../infrastructure/http/basics";
 import { validateSchema } from "../../validator";
-import { deleteAuthUserSchema, signInSchema, signUpSchema } from "./schemas";
+import { deleteAuthUserSchema, signUpSchema } from "./schemas";
 
 export const signInController = [
-  validateSchema(signInSchema),
+  // validateSchema(signInSchema),
   async (request: Request, response: Response, next: NextFunction) => {
     try {
       const { client_id: clientId } = request.params;
@@ -37,10 +37,7 @@ export const signUpController = [
         first_name: firstName,
         last_name: lastName,
         email,
-        identification_number: identificationNumber,
-        phone_number: phoneNumber,
         terms,
-        notifications,
       } = request.body;
 
       const data: SignUpUser = {
@@ -48,11 +45,7 @@ export const signUpController = [
         firstName,
         lastName,
         email,
-        identificationNumber: identificationNumber ?? null,
-        phoneNumber: phoneNumber ?? null,
         terms,
-        notifications,
-        clientId,
       };
 
       const user = await signUpInteractor(clientId, accessToken as string, data);

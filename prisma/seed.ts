@@ -1,12 +1,10 @@
-import { seedPermission } from "./seeders/permission";
-import { seedPermissionOnRoles } from "./seeders/permission_on_roles";
 import { seedRoles } from "./seeders/roles";
 
 const main = async () => {
   try {
     await seedRoles();
-    await seedPermission();
-    await seedPermissionOnRoles();
+    // await seedPermission();
+    // await seedPermissionOnRoles();
 
     console.log("ALL_SEEDS_EXECUTED_SUCCESSFULLY");
   } catch (error) {

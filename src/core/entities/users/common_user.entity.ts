@@ -20,10 +20,7 @@ export interface UserPrisma {
   user_first_name: string;
   user_last_name: string;
   user_email: string;
-  user_identification_number: string | null;
-  user_phone_number: string | null;
   user_terms: boolean;
-  user_notifications: boolean;
   user_is_active: boolean;
   user_uid: string;
   user_role: UserRole;
@@ -40,10 +37,7 @@ export interface UserResponse {
   firstName: string;
   lastName: string;
   email: string;
-  identificationNumber: string | null;
-  phoneNumber: string | null;
   terms: boolean;
-  notifications: boolean;
   isActive: boolean;
   uid: string;
   role: UserRole;
@@ -54,10 +48,7 @@ export interface UserResponse {
 
 export class CommonUserEntity extends BaseUserEntity {
   protected username: string;
-  protected identificationNumber: string | null;
-  protected phoneNumber: string | null;
   protected terms: boolean;
-  protected notifications: boolean;
   protected isActive: boolean;
   protected uid: string;
   protected authProvider: AuthProvider;
@@ -68,10 +59,7 @@ export class CommonUserEntity extends BaseUserEntity {
     firstName: string,
     lastName: string,
     email: string,
-    identificationNumber: string | null,
-    phoneNumber: string | null,
     terms: boolean,
-    notifications: boolean,
     isActive: boolean,
     uid: string,
     authProvider: AuthProvider,
@@ -84,10 +72,7 @@ export class CommonUserEntity extends BaseUserEntity {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    this.identificationNumber = identificationNumber;
-    this.phoneNumber = phoneNumber;
     this.terms = terms;
-    this.notifications = notifications;
     this.isActive = isActive;
     this.uid = uid;
     this.role = role;
@@ -101,10 +86,7 @@ export class CommonUserEntity extends BaseUserEntity {
       payload.user_first_name,
       payload.user_last_name,
       payload.user_email,
-      payload.user_identification_number,
-      payload.user_phone_number,
       payload.user_terms,
-      payload.user_notifications,
       payload.user_is_active,
       payload.user_uid,
       payload.user_auth_provider,
@@ -122,10 +104,7 @@ export class CommonUserEntity extends BaseUserEntity {
       firstName: this.getFirstName(),
       lastName: this.getLastName(),
       email: this.getEmail(),
-      identificationNumber: this.getIdentificationNumber(),
-      phoneNumber: this.getPhoneNumber(),
       terms: this.getTerms(),
-      notifications: this.getNotifications(),
       isActive: this.getIsActive(),
       uid: this.getUid(),
       role: this.getRole(),
@@ -143,21 +122,6 @@ export class CommonUserEntity extends BaseUserEntity {
     this.username = username;
   }
 
-  public getIdentificationNumber(): string | null {
-    return this.identificationNumber;
-  }
-
-  public setIdentificationNumber(identificationNumber: string | null): void {
-    this.identificationNumber = identificationNumber;
-  }
-
-  public getPhoneNumber(): string | null {
-    return this.phoneNumber;
-  }
-
-  public setPhoneNumber(phoneNumber: string | null): void {
-    this.phoneNumber = phoneNumber;
-  }
 
   public getTerms(): boolean {
     return this.terms;
@@ -167,13 +131,6 @@ export class CommonUserEntity extends BaseUserEntity {
     this.terms = terms;
   }
 
-  public getNotifications(): boolean {
-    return this.notifications;
-  }
-
-  public setNotifications(notifications: boolean): void {
-    this.notifications = notifications;
-  }
 
   public getIsActive(): boolean {
     return this.isActive;
