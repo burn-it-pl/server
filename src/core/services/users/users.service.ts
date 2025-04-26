@@ -16,3 +16,14 @@ export const findCommonUserService = async (client: PrismaClient, email: string)
     throw new InternalServerError(ErrorMessage.INTERNAL_SERVER_ERROR);
   }
 };
+
+export const findUsersService = async (client: PrismaClient): Promise<CommonUserEntity[]> => {
+  try {
+    const records = await client.user.findMany();
+
+    return records.map(record => CommonUserEntity.fromPrisma(record as UserPrisma));
+  } catch (error) {
+    prismaGlobalExceptionFilter(error);
+    throw new InternalServerError(ErrorMessage.INTERNAL_SERVER_ERROR);
+  }
+}

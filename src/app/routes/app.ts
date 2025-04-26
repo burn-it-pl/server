@@ -4,6 +4,7 @@ import morgan from "morgan";
 
 import { healthCheck, logError, logRequest, notFound } from "../../adapters/api/middlewares/basics";
 import authRouter from "./auth.router";
+import userRouter from "./user.router";
 
 const router = express();
 const logFormat =
@@ -20,6 +21,7 @@ router.use(express.urlencoded({ extended: false }));
 router.get("/", healthCheck);
 router.get("/health", healthCheck);
 router.use("/", authRouter);
+router.use("/", userRouter);
 
 router.use(morgan(logFormat));
 router.use(logRequest);
