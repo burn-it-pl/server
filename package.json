@@ -10,6 +10,7 @@
     "prettier": "./node_modules/prettier/bin/prettier.cjs --write .",
     "start:dev": "npm run build && nodemon ./build/src/app/server.js",
     "start:prod": "npm run build && node ./build/src/app/server.js",
+    "postinstall": "prisma generate",
     "test": "LOG_SILENT=true jest --coverage --logHeapUsage"
   },
   "dependencies": {
