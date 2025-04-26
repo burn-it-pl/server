@@ -7,11 +7,14 @@ export const getUsersController = [
   async (_request: Request, response: Response, next: NextFunction) => {
     try {
       const users = await getUsersInteractor();
-
-      response.setHeader("X-Total-Count", users.length.toString());
+      const total = users.length;
+      response.setHeader("X-Total-Count", total.toString());
       response.setHeader("Access-Control-Expose-Headers", "X-Total-Count");
 
-      response.status(HttpStatusCode.OK).json({ data: users });
+      response.status(HttpStatusCode.OK).json({
+        data: users,
+        total,
+      });
     } catch (error) {
       next(error);
     }
