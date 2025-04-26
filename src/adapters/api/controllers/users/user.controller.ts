@@ -11,7 +11,7 @@ export const getUsersController = [
       response.setHeader("X-Total-Count", users.length.toString());
       response.setHeader("Access-Control-Expose-Headers", "X-Total-Count");
 
-      response.status(HttpStatusCode.OK).json({ users });
+      response.status(HttpStatusCode.OK).json({ data: users });
     } catch (error) {
       next(error);
     }
