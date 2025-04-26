@@ -4,17 +4,20 @@ import { getUsersInteractor } from "../../../../core/interactors/users/user.inte
 
 
 export const getUsersController = [
-  async (_request: Request, response: Response, next: NextFunction) => {
+  async (request: Request, response: Response, next: NextFunction) => {
     try {
       const users = await getUsersInteractor();
       const total = users.length;
+
+      const start = parseInt(request.query._start as string) || 0;
+      const end = parseInt(request.query._end as string) || total;
+
+      const paginatedUsers = users.slice(start, end);
+
       response.setHeader("X-Total-Count", total.toString());
       response.setHeader("Access-Control-Expose-Headers", "X-Total-Count");
 
-      response.status(HttpStatusCode.OK).json({
-        data: users,
-        total,
-      });
+      response.status(HttpStatusCode.OK).json(paginatedUsers);
     } catch (error) {
       next(error);
     }
