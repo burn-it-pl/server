@@ -60,7 +60,7 @@ export const getUserSurveyService = async (userId: string): Promise<SurveyEntity
       }
     });
 
-    return surveys.map(s => SurveyEntity.fromPrisma(s.survey));
+    return surveys.map((s: { survey: any }) => SurveyEntity.fromPrisma(s.survey));
   });
 };
 
