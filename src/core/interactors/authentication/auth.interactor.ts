@@ -42,6 +42,15 @@ export const signUpInteractor = async (
       throw new UnauthorizedError(ErrorMessage.UNAUTHORIZED);
     }
 
+    // First check if role exists
+    const role = await client.role.findUnique({
+      where: { role_name: UserRole.GUEST_USER }
+    });
+
+    if (!role) {
+      throw new Error(`Role ${UserRole.GUEST_USER} does not exist`);
+    }
+
     const record = client.user.create({
       data: {
         user_username: data.username,
