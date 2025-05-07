@@ -1,8 +1,7 @@
 import { Router } from "express";
 import { getUsersController } from "../../adapters/api/controllers/users/user.controller";
-import { submitSurvey, getUserSurveys } from './survey.controller'; // Import new controllers
-import { submitSurveyValidation } from './survey.validation'; // Import validation middleware
-
+import { submitSurvey, getUserSurveys } from "../routes/survey.controller";
+import { submitSurveyValidation } from "../routes/survey.validation";
 
 const user = Router();
 
@@ -12,7 +11,6 @@ user.get("/users", getUsersController);
 // Surveys
 user.post("/surveys", submitSurveyValidation, submitSurvey);
 user.get("/surveys", getUserSurveys);
-
 
 export default user;
 
