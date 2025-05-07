@@ -29,7 +29,6 @@ export const getSurveysService = async (
 
     return [
       surveys.map(survey => new SurveyEntity(
-        survey.survey_id,
         survey.survey_title,
         survey.survey_description,
         survey.questions.map(q => ({
@@ -48,144 +47,126 @@ export const getSurveysService = async (
   });
 };
 
-export const getSurveyByIdService = async (id: string): Promise<SurveyEntity> => {
+export const getQuestionsService = async (
+  start: number,
+  end: number,
+  sortField: string,
+  sortOrder: string,
+  surveyId: string
+) => {
   return onSession(async (client: PrismaClient) => {
-    const survey = await client.survey.findUnique({
-      where: { survey_id: id },
-      include: {
-        questions: {
-          include: {
-            answerOptions: true
-          }
-        }
-      }
-    });
-
-    if (!survey) {
-      throw new Error('Survey not found');
-    }
-
-    return new SurveyEntity(
-      survey.survey_id,
-      survey.survey_title,
-      survey.survey_description,
-      survey.questions.map(q => ({
-        id: q.question_id,
-        text: q.question_text,
-        order: q.question_order,
-        answerOptions: q.answerOptions.map(o => ({
-          id: o.option_id,
-          text: o.option_text,
-          level: o.option_level as TrainingLevel
-        }))
-      }))
-    );
+    const [questions, total] = await Promise.all([
+      client.question.findMany({
+        where: { question_survey: surveyId },
+        skip: start,
+        take: end - start,
+        orderBy: { [sortField]: sortOrder.toLowerCase() },
+        include: { answerOptions: true }
+      }),
+      client.question.count({ where: { question_survey: surveyId } })
+    ]);
+    return [questions, total];
   });
 };
 
-export const createSurveyService = async (data: {
-  title: string;
-  description?: string;
-  questions?: Array<{
-    text: string;
-    order: number;
-    options: Array<{
-      text: string;
-      level: TrainingLevel;
-    }>;
-  }>;
-}): Promise<SurveyEntity> => {
+export const getQuestionByIdService = async (id: string) => {
   return onSession(async (client: PrismaClient) => {
-    const survey = await client.survey.create({
+    return client.question.findUnique({
+      where: { question_id: id },
+      include: { answerOptions: true }
+    });
+  });
+};
+
+export const createQuestionService = async (data: any) => {
+  return onSession(async (client: PrismaClient) => {
+    return client.question.create({
       data: {
-        survey_title: data.title,
-        survey_description: data.description,
-        questions: {
-          create: data.questions?.map(q => ({
-            question_text: q.text,
-            question_order: q.order,
-            answerOptions: {
-              create: q.options.map(o => ({
-                option_text: o.text,
-                option_level: o.level
-              }))
-            }
-          }))
-        }
-      },
-      include: {
-        questions: {
-          include: {
-            answerOptions: true
-          }
-        }
+        question_text: data.text,
+        question_order: data.order,
+        question_survey: data.surveyId
       }
     });
-
-    return new SurveyEntity(
-      survey.survey_id,
-      survey.survey_title,
-      survey.survey_description,
-      survey.questions.map(q => ({
-        id: q.question_id,
-        text: q.question_text,
-        order: q.question_order,
-        answerOptions: q.answerOptions.map(o => ({
-          id: o.option_id,
-          text: o.option_text,
-          level: o.option_level as TrainingLevel
-        }))
-      }))
-    );
   });
 };
 
-// Implement other service methods similarly...
-
-export const updateSurveyService = async (id: string, data: {
-  title?: string;
-  description?: string;
-}): Promise<SurveyEntity> => {
+export const updateQuestionService = async (id: string, data: any) => {
   return onSession(async (client: PrismaClient) => {
-    const survey = await client.survey.update({
-      where: { survey_id: id },
+    return client.question.update({
+      where: { question_id: id },
       data: {
-        survey_title: data.title,
-        survey_description: data.description
-      },
-      include: {
-        questions: {
-          include: {
-            answerOptions: true
-          }
-        }
+        question_text: data.text,
+        question_order: data.order
       }
     });
-
-    return new SurveyEntity(
-      survey.survey_id,
-      survey.survey_title,
-      survey.survey_description,
-      survey.questions.map(q => ({
-        id: q.question_id,
-        text: q.question_text,
-        order: q.question_order,
-        answerOptions: q.answerOptions.map(o => ({
-          id: o.option_id,
-          text: o.option_text,
-          level: o.option_level as TrainingLevel
-        }))
-      }))
-    );
   });
 };
 
-export const deleteSurveyService = async (id: string): Promise<void> => {
+export const deleteQuestionService = async (id: string) => {
   return onSession(async (client: PrismaClient) => {
-    await client.survey.delete({
-      where: { survey_id: id }
+    await client.question.delete({
+      where: { question_id: id }
     });
   });
 };
 
-// Add other service methods (questions, answer options) with similar patterns
+export const getAnswerOptionsService = async (
+  start: number,
+  end: number,
+  sortField: string,
+  sortOrder: string,
+  questionId: string
+) => {
+  return onSession(async (client: PrismaClient) => {
+    const [options, total] = await Promise.all([
+      client.answerOption.findMany({
+        where: { option_question: questionId },
+        skip: start,
+        take: end - start,
+        orderBy: { [sortField]: sortOrder.toLowerCase() }
+      }),
+      client.answerOption.count({ where: { option_question: questionId } })
+    ]);
+    return [options, total];
+  });
+};
+
+export const getAnswerOptionByIdService = async (id: string) => {
+  return onSession(async (client: PrismaClient) => {
+    return client.answerOption.findUnique({
+      where: { option_id: id }
+    });
+  });
+};
+
+export const createAnswerOptionService = async (data: any) => {
+  return onSession(async (client: PrismaClient) => {
+    return client.answerOption.create({
+      data: {
+        option_text: data.text,
+        option_level: data.level,
+        option_question: data.questionId
+      }
+    });
+  });
+};
+
+export const updateAnswerOptionService = async (id: string, data: any) => {
+  return onSession(async (client: PrismaClient) => {
+    return client.answerOption.update({
+      where: { option_id: id },
+      data: {
+        option_text: data.text,
+        option_level: data.level
+      }
+    });
+  });
+};
+
+export const deleteAnswerOptionService = async (id: string) => {
+  return onSession(async (client: PrismaClient) => {
+    await client.answerOption.delete({
+      where: { option_id: id }
+    });
+  });
+};
