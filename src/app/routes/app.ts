@@ -22,6 +22,7 @@ router.get("/", healthCheck);
 router.get("/health", healthCheck);
 router.use("/", authRouter);
 router.use("/", userRouter);
+router.use("/api", surveyRouter);
 
 router.use(morgan(logFormat));
 router.use(logRequest);
