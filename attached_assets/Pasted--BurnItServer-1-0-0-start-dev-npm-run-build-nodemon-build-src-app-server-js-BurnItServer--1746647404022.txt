@@ -1,0 +1,270 @@
+
+> BurnItServer@1.0.0 start:dev
+> npm run build && nodemon ./build/src/app/server.js
+> BurnItServer@1.0.0 build
+> tsc
+
+src/adapters/api/controllers/users/survey.controller.ts:2:10 - error TS2300: Duplicate identifier 'Response'.
+
+2 import { Response } from "express";
+           ~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:5:10 - error TS2300: Duplicate identifier 'createSurveyService'.
+
+5 import { createSurveyService, getUserSurveyService } from "../../../../core/services/users/survey.service";
+           ~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:5:31 - error TS2724: '"../../../../core/services/users/survey.service"' has no exported member named 'getUserSurveyService'. Did you mean 'getSurveysService'?
+
+5 import { createSurveyService, getUserSurveyService } from "../../../../core/services/users/survey.service";
+                                ~~~~~~~~~~~~~~~~~~~~
+
+  src/core/services/users/survey.service.ts:12:14
+    12 export const getSurveysService = async (
+                    ~~~~~~~~~~~~~~~~~
+    'getSurveysService' is declared here.
+
+src/adapters/api/controllers/users/survey.controller.ts:8:10 - error TS2300: Duplicate identifier 'Request'.
+
+8 import { Request } from "express";
+           ~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:30:51 - error TS2554: Expected 1 arguments, but got 3.
+
+30   const survey = await createSurveyService(title, description, questions);
+                                                     ~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:39:10 - error TS2300: Duplicate identifier 'Request'.
+
+39 import { Request, Response } from 'express';
+            ~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:39:19 - error TS2300: Duplicate identifier 'Response'.
+
+39 import { Request, Response } from 'express';
+                     ~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:41:3 - error TS2300: Duplicate identifier 'createSurveyService'.
+
+41   createSurveyService,
+     ~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:42:3 - error TS2724: '"../../../../core/services/users/survey.service"' has no exported member named 'getSurveyByIdService'. Did you mean 'getSurveysService'?
+
+42   getSurveyByIdService,
+     ~~~~~~~~~~~~~~~~~~~~
+
+  src/core/services/users/survey.service.ts:12:14
+    12 export const getSurveysService = async (
+                    ~~~~~~~~~~~~~~~~~
+    'getSurveysService' is declared here.
+
+src/adapters/api/controllers/users/survey.controller.ts:44:3 - error TS2724: '"../../../../core/services/users/survey.service"' has no exported member named 'updateSurveyService'. Did you mean 'createSurveyService'?
+
+44   updateSurveyService,
+     ~~~~~~~~~~~~~~~~~~~
+
+  src/core/services/users/survey.service.ts:55:14
+    55 export const createSurveyService = async (data: {
+                    ~~~~~~~~~~~~~~~~~~~
+    'createSurveyService' is declared here.
+
+src/adapters/api/controllers/users/survey.controller.ts:45:3 - error TS2724: '"../../../../core/services/users/survey.service"' has no exported member named 'deleteSurveyService'. Did you mean 'getSurveysService'?
+
+45   deleteSurveyService,
+     ~~~~~~~~~~~~~~~~~~~
+
+  src/core/services/users/survey.service.ts:12:14
+    12 export const getSurveysService = async (
+                    ~~~~~~~~~~~~~~~~~
+    'getSurveysService' is declared here.
+
+src/adapters/api/controllers/users/survey.controller.ts:46:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'getQuestionsService'.
+
+46   getQuestionsService,
+     ~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:47:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'getQuestionByIdService'.
+
+47   getQuestionByIdService,
+     ~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:47:3 - error TS6133: 'getQuestionByIdService' is declared but its value is never read.
+
+47   getQuestionByIdService,
+     ~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:48:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'createQuestionService'.
+
+48   createQuestionService,
+     ~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:48:3 - error TS6133: 'createQuestionService' is declared but its value is never read.
+
+48   createQuestionService,
+     ~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:49:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'updateQuestionService'.
+
+49   updateQuestionService,
+     ~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:49:3 - error TS6133: 'updateQuestionService' is declared but its value is never read.
+
+49   updateQuestionService,
+     ~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:50:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'deleteQuestionService'.
+
+50   deleteQuestionService,
+     ~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:50:3 - error TS6133: 'deleteQuestionService' is declared but its value is never read.
+
+50   deleteQuestionService,
+     ~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:51:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'getAnswerOptionsService'.
+
+51   getAnswerOptionsService,
+     ~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:51:3 - error TS6133: 'getAnswerOptionsService' is declared but its value is never read.
+
+51   getAnswerOptionsService,
+     ~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:52:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'getAnswerOptionByIdService'.
+
+52   getAnswerOptionByIdService,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:52:3 - error TS6133: 'getAnswerOptionByIdService' is declared but its value is never read.
+
+52   getAnswerOptionByIdService,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:53:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'createAnswerOptionService'.
+
+53   createAnswerOptionService,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:53:3 - error TS6133: 'createAnswerOptionService' is declared but its value is never read.
+
+53   createAnswerOptionService,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:54:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'updateAnswerOptionService'.
+
+54   updateAnswerOptionService,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:54:3 - error TS6133: 'updateAnswerOptionService' is declared but its value is never read.
+
+54   updateAnswerOptionService,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:55:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'deleteAnswerOptionService'.
+
+55   deleteAnswerOptionService
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:55:3 - error TS6133: 'deleteAnswerOptionService' is declared but its value is never read.
+
+55   deleteAnswerOptionService
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.routes.ts:12:3 - error TS2724: '"./survey.controller"' has no exported member named 'getQuestionById'. Did you mean 'getQuestions'?
+
+12   getQuestionById,
+     ~~~~~~~~~~~~~~~
+
+  src/adapters/api/controllers/users/survey.controller.ts:91:14
+    91 export const getQuestions = async (req: Request, res: Response) => {
+                    ~~~~~~~~~~~~
+    'getQuestions' is declared here.
+
+src/adapters/api/controllers/users/survey.routes.ts:13:3 - error TS2305: Module '"./survey.controller"' has no exported member 'createQuestion'.
+
+13   createQuestion,
+     ~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.routes.ts:14:3 - error TS2305: Module '"./survey.controller"' has no exported member 'updateQuestion'.
+
+14   updateQuestion,
+     ~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.routes.ts:15:3 - error TS2305: Module '"./survey.controller"' has no exported member 'deleteQuestion'.
+
+15   deleteQuestion,
+     ~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.routes.ts:16:3 - error TS2305: Module '"./survey.controller"' has no exported member 'getAnswerOptions'.
+
+16   getAnswerOptions,
+     ~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.routes.ts:17:3 - error TS2305: Module '"./survey.controller"' has no exported member 'getAnswerOptionById'.
+
+17   getAnswerOptionById,
+     ~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.routes.ts:18:3 - error TS2305: Module '"./survey.controller"' has no exported member 'createAnswerOption'.
+
+18   createAnswerOption,
+     ~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.routes.ts:19:3 - error TS2305: Module '"./survey.controller"' has no exported member 'updateAnswerOption'.
+
+19   updateAnswerOption,
+     ~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.routes.ts:20:3 - error TS2305: Module '"./survey.controller"' has no exported member 'deleteAnswerOption'.
+
+20   deleteAnswerOption
+     ~~~~~~~~~~~~~~~~~~
+
+src/app/routes/app.ts:25:20 - error TS2304: Cannot find name 'surveyRouter'.
+
+25 router.use("/api", surveyRouter);
+                      ~~~~~~~~~~~~
+
+src/core/services/users/survey.service.ts:7:11 - error TS6196: 'PaginationResult' is declared but never used.
+
+7 interface PaginationResult<T> {
+            ~~~~~~~~~~~~~~~~
+
+src/core/services/users/survey.service.ts:18:3 - error TS2322: Type '[{ id: string; title: string; description: string | null; createdAt: Date; updatedAt: Date; questions: { id: string; text: string; order: number; answerOptions: { id: string; text: string; level: TrainingLevel; }[]; }[]; }[], number]' is not assignable to type '[SurveyEntity[], number]'.
+  Type at position 0 in source is not compatible with type at position 0 in target.
+    Type '{ id: string; title: string; description: string | null; createdAt: Date; updatedAt: Date; questions: { id: string; text: string; order: number; answerOptions: { id: string; text: string; level: TrainingLevel; }[]; }[]; }[]' is not assignable to type 'SurveyEntity[]'.
+      Type '{ id: string; title: string; description: string | null; createdAt: Date; updatedAt: Date; questions: { id: string; text: string; order: number; answerOptions: { id: string; text: string; level: TrainingLevel; }[]; }[]; }' is missing the following properties from type 'SurveyEntity': getTitle, getDescription, getQuestions, getId, setId
+
+18   return onSession(async (client: PrismaClient) => {
+     ~~~~~~
+
+src/core/services/users/survey.service.ts:69:9 - error TS2322: Type '{ create: { question_text: string; question_order: number; answerOptions: { create: { text: string; level: TrainingLevel; }[]; }; }[]; }' is not assignable to type 'QuestionCreateNestedManyWithoutSurveyInput | QuestionUncheckedCreateNestedManyWithoutSurveyInput | undefined'.
+  Types of property 'create' are incompatible.
+    Type '{ question_text: string; question_order: number; answerOptions: { create: { text: string; level: TrainingLevel; }[]; }; }[]' is not assignable to type '(Without<QuestionCreateWithoutSurveyInput, QuestionUncheckedCreateWithoutSurveyInput> & QuestionUncheckedCreateWithoutSurveyInput) | (Without<...> & QuestionCreateWithoutSurveyInput) | QuestionCreateWithoutSurveyInput[] | QuestionUncheckedCreateWithoutSurveyInput[] | undefined'.
+      Type '{ question_text: string; question_order: number; answerOptions: { create: { text: string; level: TrainingLevel; }[]; }; }[]' is not assignable to type 'QuestionCreateWithoutSurveyInput[]'.
+        Type '{ question_text: string; question_order: number; answerOptions: { create: { text: string; level: TrainingLevel; }[]; }; }' is not assignable to type 'QuestionCreateWithoutSurveyInput'.
+          The types of 'answerOptions.create' are incompatible between these types.
+            Type '{ text: string; level: TrainingLevel; }[]' is not assignable to type '(Without<AnswerOptionCreateWithoutQuestionInput, AnswerOptionUncheckedCreateWithoutQuestionInput> & AnswerOptionUncheckedCreateWithoutQuestionInput) | (Without<...> & AnswerOptionCreateWithoutQuestionInput) | AnswerOptionCreateWithoutQuestionInput[] | AnswerOptionUncheckedCreateWithoutQuestionInput[] | undefined'.
+              Type '{ text: string; level: TrainingLevel; }[]' is not assignable to type 'AnswerOptionCreateWithoutQuestionInput[]'.
+                Type '{ text: string; level: TrainingLevel; }' is missing the following properties from type 'AnswerOptionCreateWithoutQuestionInput': option_text, option_level
+
+69         questions: data.questions ? {
+           ~~~~~~~~~
+
+  node_modules/.prisma/client/index.d.ts:10656:5
+    10656     questions?: QuestionUncheckedCreateNestedManyWithoutSurveyInput
+              ~~~~~~~~~
+    The expected type comes from property 'questions' which is declared here on type '(Without<SurveyCreateInput, SurveyUncheckedCreateInput> & SurveyUncheckedCreateInput) | (Without<...> & SurveyCreateInput)'
+
+
+Found 43 errors in 4 files.
+
+Errors  Files
+    30  src/adapters/api/controllers/users/survey.controller.ts:2
+     9  src/adapters/api/controllers/users/survey.routes.ts:12
+     1  src/app/routes/app.ts:25
+     3  src/core/services/users/survey.service.ts:7
