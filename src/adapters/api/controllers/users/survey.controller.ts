@@ -26,8 +26,7 @@ export const getSurveys = async (req: Request, res: Response) => {
     String(_order)
   );
   res.set('X-Total-Count', String(total));
-  res.set('Content-Range', `surveys 0-${data.length}/${total}`);
-  res.set('Access-Control-Expose-Headers', 'Content-Range, X-Total-Count');
+  res.set('Access-Control-Expose-Headers', 'X-Total-Count');
   res.json(data);
 };
 
@@ -62,8 +61,7 @@ export const getQuestions = async (req: Request, res: Response) => {
   );
   const questions = data as any[];
   res.set('X-Total-Count', String(total));
-  res.set('Content-Range', `questions 0-${questions.length}/${total}`);
-  res.set('Access-Control-Expose-Headers', 'Content-Range, X-Total-Count');
+  res.set('Access-Control-Expose-Headers', 'X-Total-Count');
   res.json(questions);
 };
 
@@ -98,8 +96,7 @@ export const getAnswerOptions = async (req: Request, res: Response) => {
   );
   const options = data as any[];
   res.set('X-Total-Count', String(total));
-  res.set('Content-Range', `answer_options 0-${options.length}/${total}`);
-  res.set('Access-Control-Expose-Headers', 'Content-Range, X-Total-Count');
+  res.set('Access-Control-Expose-Headers', 'X-Total-Count');
   res.json(options);
 };
 
