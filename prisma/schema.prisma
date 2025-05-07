@@ -83,3 +83,41 @@ model AuthTokenStatus {
   @@map(name: "auth_token_statuses")
   @@schema("users")
 }
+
+enum TrainingLevel {
+  BASIC
+  POWER
+  PRO
+
+  @@map(name: "training_level_enum")
+  @@schema("users")
+}
+
+model Survey {
+  survey_id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  survey_user       String       @db.Uuid
+  survey_level      TrainingLevel
+  survey_created_at DateTime     @default(now()) @db.Timestamptz
+  survey_updated_at DateTime     @default(now()) @db.Timestamptz
+
+  user User @relation(fields: [survey_user], references: [user_id], name: "surveys_users_fk")
+  answers SurveyAnswer[]
+
+  @@map(name: "surveys")
+  @@schema("users")
+}
+
+model SurveyAnswer {
+  answer_id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  answer_survey     String   @db.Uuid
+  answer_question   String   @db.VarChar(255)
+  answer_value      String   @db.VarChar(255)
+  answer_level      TrainingLevel
+  answer_created_at DateTime @default(now()) @db.Timestamptz
+  answer_updated_at DateTime @default(now()) @db.Timestamptz
+
+  survey Survey @relation(fields: [answer_survey], references: [survey_id], name: "survey_answers_survey_fk")
+
+  @@map(name: "survey_answers")
+  @@schema("users")
+}
