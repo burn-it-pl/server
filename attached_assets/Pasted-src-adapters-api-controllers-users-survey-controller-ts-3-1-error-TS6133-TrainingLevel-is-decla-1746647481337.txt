@@ -1,0 +1,120 @@
+src/adapters/api/controllers/users/survey.controller.ts:3:1 - error TS6133: 'TrainingLevel' is declared but its value is never read.
+
+3 import { TrainingLevel } from '../../../../core/entities/users/survey.enum';
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:10:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'getQuestionsService'.
+
+10   getQuestionsService,
+     ~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:11:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'getQuestionByIdService'.
+
+11   getQuestionByIdService,
+     ~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:12:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'createQuestionService'.
+
+12   createQuestionService,
+     ~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:13:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'updateQuestionService'.
+
+13   updateQuestionService,
+     ~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:14:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'deleteQuestionService'.
+
+14   deleteQuestionService,
+     ~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:15:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'getAnswerOptionsService'.
+
+15   getAnswerOptionsService,
+     ~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:16:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'getAnswerOptionByIdService'.
+
+16   getAnswerOptionByIdService,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:17:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'createAnswerOptionService'.
+
+17   createAnswerOptionService,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:18:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'updateAnswerOptionService'.
+
+18   updateAnswerOptionService,
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:19:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'deleteAnswerOptionService'.
+
+19   deleteAnswerOptionService
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:22:11 - error TS6196: 'AuthenticatedRequest' is declared but never used.
+
+22 interface AuthenticatedRequest extends Request {
+             ~~~~~~~~~~~~~~~~~~~~
+
+src/app/routes/app.ts:8:26 - error TS2307: Cannot find module '../adapters/api/controllers/users/survey.routes' or its corresponding type declarations.
+
+8 import surveyRouter from "../adapters/api/controllers/users/survey.routes";
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/core/services/users/survey.service.ts:35:9 - error TS2554: Expected 3 arguments, but got 4.
+
+ 35         survey.questions.map(q => ({
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 36           id: q.question_id,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+... 
+ 43           }))
+    ~~~~~~~~~~~~~
+ 44         }))
+    ~~~~~~~~~~~
+
+src/core/services/users/survey.service.ts:72:7 - error TS2554: Expected 3 arguments, but got 4.
+
+ 72       survey.questions.map(q => ({
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 73         id: q.question_id,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+... 
+ 80         }))
+    ~~~~~~~~~~~
+ 81       }))
+    ~~~~~~~~~
+
+src/core/services/users/survey.service.ts:129:7 - error TS2554: Expected 3 arguments, but got 4.
+
+129       survey.questions.map(q => ({
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+130         id: q.question_id,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+... 
+137         }))
+    ~~~~~~~~~~~
+138       }))
+    ~~~~~~~~~
+
+src/core/services/users/survey.service.ts:169:7 - error TS2554: Expected 3 arguments, but got 4.
+
+169       survey.questions.map(q => ({
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+170         id: q.question_id,
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~
+... 
+177         }))
+    ~~~~~~~~~~~
+178       }))
+    ~~~~~~~~~
+
+
+Found 17 errors in 3 files.
+
+Errors  Files
+    12  src/adapters/api/controllers/users/survey.controller.ts:3
+     1  src/app/routes/app.ts:8
+     4  src/core/services/users/survey.service.ts:35
