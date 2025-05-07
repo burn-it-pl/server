@@ -103,13 +103,13 @@ model Survey {
 
 model Question {
   question_id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  question_survey     String   @db.Uuid
+  question_survey     String?  @db.Uuid
   question_text       String   @db.Text
   question_order      Int
   question_created_at DateTime @default(now()) @db.Timestamptz
   question_updated_at DateTime @default(now()) @db.Timestamptz
 
-  survey        Survey         @relation(name: "survey_questions_fk", fields: [question_survey], references: [survey_id])
+  survey        Survey?         @relation(name: "survey_questions_fk", fields: [question_survey], references: [survey_id])
   answerOptions AnswerOption[] @relation(name: "question_answer_options_fk")
   userAnswers   UserAnswer[]   @relation(name: "user_answer_question_fk")
 
@@ -119,13 +119,13 @@ model Question {
 
 model AnswerOption {
   option_id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  option_question   String        @db.Uuid
+  option_question   String?       @db.Uuid
   option_text       String        @db.Text
   option_level      TrainingLevel
   option_created_at DateTime      @default(now()) @db.Timestamptz
   option_updated_at DateTime      @default(now()) @db.Timestamptz
 
-  question    Question     @relation(name: "question_answer_options_fk", fields: [option_question], references: [question_id])
+  question    Question?     @relation(name: "question_answer_options_fk", fields: [option_question], references: [question_id])
   userAnswers UserAnswer[] @relation(name: "user_answer_option_fk")
 
   @@map(name: "answer_options")

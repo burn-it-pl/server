@@ -1,4 +1,3 @@
-
 import { Router } from 'express';
 import { body, query } from 'express-validator';
 import { validate } from '../../validator';
@@ -26,6 +25,8 @@ const router = Router();
 const surveyValidation = [
   body('title').isString().notEmpty(),
   body('description').optional().isString(),
+  body('questionIds').optional().isArray(),
+  body('questionIds.*').optional().isUUID(),
   validate
 ];
 
@@ -33,6 +34,7 @@ const surveyValidation = [
 const questionValidation = [
   body('text').isString().notEmpty(),
   body('order').isInt(),
+  body('surveyId').optional().isUUID(),
   validate
 ];
 
@@ -40,6 +42,7 @@ const questionValidation = [
 const answerOptionValidation = [
   body('text').isString().notEmpty(),
   body('level').isIn(['BASIC', 'POWER', 'PRO']),
+  body('questionId').optional().isUUID(),
   validate
 ];
 

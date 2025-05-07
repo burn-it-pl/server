@@ -1,4 +1,3 @@
-
 import { PrismaClient } from "@prisma/client";
 import { SurveyEntity } from "../../entities/users/survey.entity";
 import { TrainingLevel } from "../../entities/users/survey.enum";
@@ -28,22 +27,38 @@ export const getSurveysService = async (
     ]);
 
     return [
-      surveys.map(survey => new SurveyEntity(
-        survey.survey_title,
-        survey.survey_description,
-        survey.questions.map(q => ({
-          id: q.question_id,
-          text: q.question_text,
-          order: q.question_order,
-          answerOptions: q.answerOptions.map(o => ({
-            id: o.option_id,
-            text: o.option_text,
-            level: o.option_level as TrainingLevel
-          }))
-        }))
-      )),
+      surveys.map(survey => SurveyEntity.fromPrisma(survey)),
       total
     ];
+  });
+};
+
+export const createSurveyService = async (data: { title: string; description?: string }) => {
+  return onSession(async (client: PrismaClient) => {
+    return client.survey.create({
+      data: {
+        survey_title: data.title,
+        survey_description: data.description
+      }
+    });
+  });
+};
+
+export const associateQuestionsWithSurveyService = async (surveyId: string, questionIds: string[]) => {
+  return onSession(async (client: PrismaClient) => {
+    // First, remove any existing associations
+    await client.question.updateMany({
+      where: { question_survey: surveyId },
+      data: { question_survey: null }
+    });
+
+    // Then create new associations
+    for (const questionId of questionIds) {
+      await client.question.update({
+        where: { question_id: questionId },
+        data: { question_survey: surveyId }
+      });
+    }
   });
 };
 
@@ -62,16 +77,6 @@ export const getSurveyByIdService = async (id: string) => {
   });
 };
 
-export const createSurveyService = async (data: { title: string; description?: string }) => {
-  return onSession(async (client: PrismaClient) => {
-    return client.survey.create({
-      data: {
-        survey_title: data.title,
-        survey_description: data.description
-      }
-    });
-  });
-};
 
 export const updateSurveyService = async (id: string, data: { title?: string; description?: string }) => {
   return onSession(async (client: PrismaClient) => {

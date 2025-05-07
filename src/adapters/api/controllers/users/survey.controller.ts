@@ -14,7 +14,8 @@ import {
   getAnswerOptionByIdService,
   createAnswerOptionService,
   updateAnswerOptionService,
-  deleteAnswerOptionService
+  deleteAnswerOptionService,
+  associateQuestionsWithSurveyService
 } from "../../../../core/services/users/survey.service";
 
 export const getSurveys = async (req: Request, res: Response) => {
@@ -36,12 +37,24 @@ export const getSurveyById = async (req: Request, res: Response) => {
 };
 
 export const createSurvey = async (req: Request, res: Response) => {
-  const survey = await createSurveyService(req.body);
+  const { title, description, questionIds } = req.body;
+  const survey = await createSurveyService({ title, description });
+
+  if (questionIds && questionIds.length > 0) {
+    await associateQuestionsWithSurveyService(survey.id, questionIds);
+  }
+
   res.status(201).json(survey);
 };
 
 export const updateSurvey = async (req: Request, res: Response) => {
-  const survey = await updateSurveyService(req.params.id, req.body);
+  const { title, description, questionIds } = req.body;
+  const survey = await updateSurveyService(req.params.id, { title, description });
+
+  if (questionIds) {
+    await associateQuestionsWithSurveyService(survey.id, questionIds);
+  }
+
   res.json(survey);
 };
 
@@ -71,7 +84,12 @@ export const getQuestionById = async (req: Request, res: Response) => {
 };
 
 export const createQuestion = async (req: Request, res: Response) => {
-  const question = await createQuestionService(req.body);
+  const { text, order, surveyId } = req.body;
+  const question = await createQuestionService({
+    text,
+    order,
+    surveyId: surveyId || null
+  });
   res.status(201).json(question);
 };
 
@@ -106,7 +124,12 @@ export const getAnswerOptionById = async (req: Request, res: Response) => {
 };
 
 export const createAnswerOption = async (req: Request, res: Response) => {
-  const option = await createAnswerOptionService(req.body);
+  const { text, level, questionId } = req.body;
+  const option = await createAnswerOptionService({
+    text,
+    level,
+    questionId: questionId || null
+  });
   res.status(201).json(option);
 };
 
