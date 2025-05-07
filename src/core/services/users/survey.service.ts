@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { SurveyEntity, UserAnswerPayload } from "../../entities/users/survey.entity";
+import { SurveyEntity } from "../../entities/users/survey.entity";
 import { TrainingLevel } from "../../entities/users/survey.enum";
 import { onSession } from "../../../infrastructure/database/prisma";
 
@@ -15,16 +15,16 @@ export const createSurveyService = async (
   return onSession(async (client: PrismaClient) => {
     const survey = await client.survey.create({
       data: {
-        surveyTitle: title,
-        surveyDescription: description,
+        survey_title: title,
+        survey_description: description,
         questions: {
           create: questions.map((q) => ({
-            questionText: q.text,
-            questionOrder: q.order,
+            question_text: q.text,
+            question_order: q.order,
             answerOptions: {
               create: q.options.map((opt) => ({
-                optionText: opt.text,
-                optionLevel: opt.level,
+                option_text: opt.text,
+                option_level: opt.level,
               })),
             },
           })),
@@ -46,7 +46,7 @@ export const createSurveyService = async (
 export const getUserSurveyService = async (userId: string): Promise<SurveyEntity[]> => {
   return onSession(async (client: PrismaClient) => {
     const surveys = await client.userSurvey.findMany({
-      where: { submissionUser: userId },
+      where: { submission_user: userId },
       include: {
         survey: {
           include: {

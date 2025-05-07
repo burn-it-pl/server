@@ -26,7 +26,6 @@ export const submitSurveyValidation = [
 ];
 
 export const submitSurvey = async (req: AuthenticatedRequest, res: Response) => {
-  const userId = req.user.getId();
   const { title, description, questions } = req.body;
   const survey = await createSurveyService(title, description, questions);
   res.status(201).json(survey);
