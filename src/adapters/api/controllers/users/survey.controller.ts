@@ -70,7 +70,7 @@ export const getQuestions = async (req: Request, res: Response) => {
     Number(_end),
     String(_sort),
     String(_order),
-    String(survey_id)
+    survey_id ? String(survey_id) : undefined
   );
   const questions = data as any[];
   res.set('X-Total-Count', String(total));

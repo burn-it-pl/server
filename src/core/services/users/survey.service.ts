@@ -103,18 +103,19 @@ export const getQuestionsService = async (
   end: number,
   sortField: string,
   sortOrder: string,
-  surveyId: string
+  surveyId?: string
 ) => {
   return onSession(async (client: PrismaClient) => {
+    const where = surveyId ? { question_survey: surveyId } : {};
     const [questions, total] = await Promise.all([
       client.question.findMany({
-        where: { question_survey: surveyId },
+        where,
         skip: start,
         take: end - start,
         orderBy: { [sortField]: sortOrder.toLowerCase() },
         include: { answerOptions: true }
       }),
-      client.question.count({ where: { question_survey: surveyId } })
+      client.question.count({ where })
     ]);
     return [questions, total];
   });
