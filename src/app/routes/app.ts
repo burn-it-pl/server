@@ -5,6 +5,7 @@ import morgan from "morgan";
 import { healthCheck, logError, logRequest, notFound } from "../../adapters/api/middlewares/basics";
 import authRouter from "./auth.router";
 import userRouter from "./user.router";
+import surveyRouter from "../adapters/api/controllers/users/survey.routes";
 
 const router = express();
 const logFormat =

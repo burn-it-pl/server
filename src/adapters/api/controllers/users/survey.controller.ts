@@ -1,46 +1,10 @@
 
-import { Response } from "express";
-import { body } from "express-validator";
-import { validate } from "../../validator";
-import { createSurveyService, getUserSurveyService } from "../../../../core/services/users/survey.service";
-import { TrainingLevel } from "../../../../core/entities/users/survey.enum";
-
-import { Request } from "express";
-
-export interface AuthenticatedRequest extends Request {
-  user: {
-    getId: () => string;
-  }
-}
-
-export const submitSurveyValidation = [
-  body("title").isString(),
-  body("description").optional().isString(),
-  body("questions").isArray(),
-  body("questions.*.text").isString(),
-  body("questions.*.order").isInt(),
-  body("questions.*.options").isArray(),
-  body("questions.*.options.*.text").isString(),
-  body("questions.*.options.*.level").isIn(Object.values(TrainingLevel)),
-  validate,
-];
-
-export const submitSurvey = async (req: AuthenticatedRequest, res: Response) => {
-  const { title, description, questions } = req.body;
-  const survey = await createSurveyService(title, description, questions);
-  res.status(201).json(survey);
-};
-
-export const getUserSurveys = async (req: AuthenticatedRequest, res: Response) => {
-  const userId = req.user.getId();
-  const surveys = await getUserSurveyService(userId);
-  res.status(200).json(surveys);
-};
 import { Request, Response } from 'express';
-import { 
-  createSurveyService, 
-  getSurveyByIdService,
+import { TrainingLevel } from '../../../../core/entities/users/survey.enum';
+import {
+  createSurveyService,
   getSurveysService,
+  getSurveyByIdService,
   updateSurveyService,
   deleteSurveyService,
   getQuestionsService,
@@ -55,12 +19,18 @@ import {
   deleteAnswerOptionService
 } from '../../../../core/services/users/survey.service';
 
+interface AuthenticatedRequest extends Request {
+  user: {
+    getId: () => string;
+  }
+}
+
 export const getSurveys = async (req: Request, res: Response) => {
   const { _start = 0, _end = 10, _sort = 'created_at', _order = 'DESC' } = req.query;
   const [data, total] = await getSurveysService(
-    Number(_start), 
-    Number(_end), 
-    String(_sort), 
+    Number(_start),
+    Number(_end),
+    String(_sort),
     String(_order)
   );
   res.set('X-Total-Count', String(total));
@@ -87,13 +57,12 @@ export const deleteSurvey = async (req: Request, res: Response) => {
   res.status(204).send();
 };
 
-// Similar implementations for questions and answer options...
 export const getQuestions = async (req: Request, res: Response) => {
   const { _start = 0, _end = 10, _sort = 'created_at', _order = 'DESC', survey_id } = req.query;
   const [data, total] = await getQuestionsService(
-    Number(_start), 
-    Number(_end), 
-    String(_sort), 
+    Number(_start),
+    Number(_end),
+    String(_sort),
     String(_order),
     String(survey_id)
   );
@@ -101,4 +70,55 @@ export const getQuestions = async (req: Request, res: Response) => {
   res.json(data);
 };
 
-// Implement other handlers similarly...
+export const getQuestionById = async (req: Request, res: Response) => {
+  const question = await getQuestionByIdService(req.params.id);
+  res.json(question);
+};
+
+export const createQuestion = async (req: Request, res: Response) => {
+  const question = await createQuestionService(req.body);
+  res.status(201).json(question);
+};
+
+export const updateQuestion = async (req: Request, res: Response) => {
+  const question = await updateQuestionService(req.params.id, req.body);
+  res.json(question);
+};
+
+export const deleteQuestion = async (req: Request, res: Response) => {
+  await deleteQuestionService(req.params.id);
+  res.status(204).send();
+};
+
+export const getAnswerOptions = async (req: Request, res: Response) => {
+  const { _start = 0, _end = 10, _sort = 'created_at', _order = 'DESC', question_id } = req.query;
+  const [data, total] = await getAnswerOptionsService(
+    Number(_start),
+    Number(_end),
+    String(_sort),
+    String(_order),
+    String(question_id)
+  );
+  res.set('X-Total-Count', String(total));
+  res.json(data);
+};
+
+export const getAnswerOptionById = async (req: Request, res: Response) => {
+  const option = await getAnswerOptionByIdService(req.params.id);
+  res.json(option);
+};
+
+export const createAnswerOption = async (req: Request, res: Response) => {
+  const option = await createAnswerOptionService(req.body);
+  res.status(201).json(option);
+};
+
+export const updateAnswerOption = async (req: Request, res: Response) => {
+  const option = await updateAnswerOptionService(req.params.id, req.body);
+  res.json(option);
+};
+
+export const deleteAnswerOption = async (req: Request, res: Response) => {
+  await deleteAnswerOptionService(req.params.id);
+  res.status(204).send();
+};
