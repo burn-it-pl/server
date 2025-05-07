@@ -1,7 +1,9 @@
 
 import { Response } from 'express';
 
-export interface AuthenticatedRequest {
+import { Request } from "express";
+
+export interface AuthenticatedRequest extends Request {
   user: {
     getId: () => string;
   }

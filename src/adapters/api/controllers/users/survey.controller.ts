@@ -5,7 +5,9 @@ import { validate } from "../../validator";
 import { createSurveyService, getUserSurveysService } from "../../../../core/services/users/survey.service";
 import { TrainingLevel } from "../../../../core/entities/users/survey.enum";
 
-export interface AuthenticatedRequest {
+import { Request } from "express";
+
+export interface AuthenticatedRequest extends Request {
   user: {
     getId: () => string;
   }
