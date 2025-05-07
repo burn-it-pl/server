@@ -1,11 +1,10 @@
 
-import { Request, Response } from 'express';
-import { TrainingLevel } from '../../core/entities/users/survey.enum';
+import { Response } from 'express';
 
-export interface AuthenticatedRequest extends Request {
+export interface AuthenticatedRequest {
   user: {
     getId: () => string;
-  };
+  }
 }
 
 export const submitSurvey = async (req: AuthenticatedRequest, res: Response) => {

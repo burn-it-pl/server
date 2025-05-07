@@ -1,5 +1,4 @@
 
-import { Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
 import { validate } from '../../adapters/api/validator';
 import { TrainingLevel } from '../../core/entities/users/survey.enum';

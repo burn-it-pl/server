@@ -1,5 +1,5 @@
 
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response } from "express";
 import { getUsersController } from "../../adapters/api/controllers/users/user.controller";
 import { body } from "express-validator";
 import { validate } from "../../adapters/api/validator";
@@ -18,11 +18,13 @@ const submitSurveyValidation = [
 
 // Survey controllers
 const submitSurvey = async (req: Request, res: Response) => {
-  res.status(200).json({ message: "Survey submitted" });
+  const data = req.body;
+  res.status(200).json({ message: "Survey submitted", data });
 };
 
 const getUserSurveys = async (req: Request, res: Response) => {
-  res.status(200).json({ surveys: [] });
+  const userId = req.params.userId;
+  res.status(200).json({ surveys: [], userId });
 };
 
 // Routes

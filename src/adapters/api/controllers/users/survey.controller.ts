@@ -1,10 +1,15 @@
 
-import { Request, Response } from "express";
+import { Response } from "express";
 import { body } from "express-validator";
 import { validate } from "../../validator";
 import { createSurveyService, getUserSurveysService } from "../../../../core/services/users/survey.service";
 import { TrainingLevel } from "../../../../core/entities/users/survey.enum";
-import { AuthenticatedRequest } from "../../middlewares/basics";
+
+export interface AuthenticatedRequest {
+  user: {
+    getId: () => string;
+  }
+}
 
 export const submitSurveyValidation = [
   body("answers").isArray(),
