@@ -1,6 +1,4 @@
-
-import { Request, Response } from 'express';
-import { TrainingLevel } from '../../../../core/entities/users/survey.enum';
+import { Request, Response } from "express";
 import {
   createSurveyService,
   getSurveysService,
@@ -17,13 +15,7 @@ import {
   createAnswerOptionService,
   updateAnswerOptionService,
   deleteAnswerOptionService
-} from '../../../../core/services/users/survey.service';
-
-interface AuthenticatedRequest extends Request {
-  user: {
-    getId: () => string;
-  }
-}
+} from "../../../../core/services/users/survey.service";
 
 export const getSurveys = async (req: Request, res: Response) => {
   const { _start = 0, _end = 10, _sort = 'created_at', _order = 'DESC' } = req.query;

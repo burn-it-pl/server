@@ -47,6 +47,52 @@ export const getSurveysService = async (
   });
 };
 
+export const getSurveyByIdService = async (id: string) => {
+  return onSession(async (client: PrismaClient) => {
+    return client.survey.findUnique({
+      where: { survey_id: id },
+      include: {
+        questions: {
+          include: {
+            answerOptions: true
+          }
+        }
+      }
+    });
+  });
+};
+
+export const createSurveyService = async (data: { title: string; description?: string }) => {
+  return onSession(async (client: PrismaClient) => {
+    return client.survey.create({
+      data: {
+        survey_title: data.title,
+        survey_description: data.description
+      }
+    });
+  });
+};
+
+export const updateSurveyService = async (id: string, data: { title?: string; description?: string }) => {
+  return onSession(async (client: PrismaClient) => {
+    return client.survey.update({
+      where: { survey_id: id },
+      data: {
+        survey_title: data.title,
+        survey_description: data.description
+      }
+    });
+  });
+};
+
+export const deleteSurveyService = async (id: string) => {
+  return onSession(async (client: PrismaClient) => {
+    await client.survey.delete({
+      where: { survey_id: id }
+    });
+  });
+};
+
 export const getQuestionsService = async (
   start: number,
   end: number,
