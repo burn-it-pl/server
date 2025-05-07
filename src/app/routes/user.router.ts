@@ -1,33 +1,33 @@
-import { Router } from "express";
+
+import { Router, Request, Response, NextFunction } from "express";
 import { getUsersController } from "../../adapters/api/controllers/users/user.controller";
-import { submitSurvey, getUserSurveys } from "../routes/survey.controller";
-import { submitSurveyValidation } from "../routes/survey.validation";
+import { body } from "express-validator";
+import { validate } from "../../adapters/api/validator";
+import { TrainingLevel } from "../../core/entities/users/survey.enum";
 
 const user = Router();
 
-// User
-user.get("/users", getUsersController);
+// Survey validation middleware
+const submitSurveyValidation = [
+  body("answers").isArray(),
+  body("answers.*.question").isString(),
+  body("answers.*.value").isString(),
+  body("answers.*.level").isIn(Object.values(TrainingLevel)),
+  validate,
+];
 
-// Surveys
+// Survey controllers
+const submitSurvey = async (req: Request, res: Response) => {
+  res.status(200).json({ message: "Survey submitted" });
+};
+
+const getUserSurveys = async (req: Request, res: Response) => {
+  res.status(200).json({ surveys: [] });
+};
+
+// Routes
+user.get("/users", getUsersController);
 user.post("/surveys", submitSurveyValidation, submitSurvey);
 user.get("/surveys", getUserSurveys);
 
 export default user;
-
-//Dummy survey.controller.ts
-export const submitSurvey = (req, res) => {
-  // Implementation to handle survey submission, including level assignment logic
-  res.status(200).json({ message: 'Survey submitted' });
-};
-
-export const getUserSurveys = (req, res) => {
-  // Implementation to retrieve user's survey history
-  res.status(200).json({ surveys: [] });
-};
-
-
-//Dummy survey.validation.ts
-export const submitSurveyValidation = (req, res, next) => {
-  //Implementation for survey input validation
-  next();
-};

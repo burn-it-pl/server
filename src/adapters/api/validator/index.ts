@@ -1,6 +1,6 @@
+
 import { NextFunction, Request, Response } from "express";
 import { ValidationChain, validationResult } from "express-validator";
-
 import { ErrorMessage } from "../errors/errors.enum";
 import { UnprocessableEntityError } from "../errors/unprocessable_entity.error";
 
@@ -22,11 +22,8 @@ export const validateSchema = (validations: ValidationChain[]) => {
     return next(error);
   };
 };
-import { validationResult } from "express-validator";
-import { Request, Response, NextFunction } from "express";
-import { UnprocessableEntityError } from "../errors/unprocessable_entity.error";
 
-export const validate = (req: Request, res: Response, next: NextFunction) => {
+export const validate = (req: Request, _: Response, next: NextFunction) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     throw new UnprocessableEntityError("Validation error", errors.array());
