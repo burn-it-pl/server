@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { SurveyEntity } from "../../entities/users/survey.entity";
-import { TrainingLevel } from "../../entities/users/survey.enum";
+
 import { onSession } from "../../../infrastructure/database/prisma";
 
 export const getSurveysService = async (

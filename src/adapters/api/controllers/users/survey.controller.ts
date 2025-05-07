@@ -41,7 +41,7 @@ export const createSurvey = async (req: Request, res: Response) => {
   const survey = await createSurveyService({ title, description });
 
   if (questionIds && questionIds.length > 0) {
-    await associateQuestionsWithSurveyService(survey.id, questionIds);
+    await associateQuestionsWithSurveyService(survey.survey_id, questionIds);
   }
 
   res.status(201).json(survey);
@@ -52,7 +52,7 @@ export const updateSurvey = async (req: Request, res: Response) => {
   const survey = await updateSurveyService(req.params.id, { title, description });
 
   if (questionIds) {
-    await associateQuestionsWithSurveyService(survey.id, questionIds);
+    await associateQuestionsWithSurveyService(survey.survey_id, questionIds);
   }
 
   res.json(survey);
