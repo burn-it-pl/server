@@ -1,0 +1,33 @@
+src/adapters/api/controllers/users/survey.controller.ts:29:9 - error TS6133: 'userId' is declared but its value is never read.
+
+29   const userId = req.user.getId();
+           ~~~~~~
+
+src/core/services/users/survey.service.ts:2:24 - error TS6133: 'UserAnswerPayload' is declared but its value is never read.
+
+2 import { SurveyEntity, UserAnswerPayload } from "../../entities/users/survey.entity";
+                         ~~~~~~~~~~~~~~~~~
+
+src/core/services/users/survey.service.ts:21:11 - error TS2322: Type '{ questionText: string; questionOrder: number; answerOptions: { create: { optionText: string; optionLevel: TrainingLevel; }[]; }; }[]' is not assignable to type '(Without<QuestionCreateWithoutSurveyInput, QuestionUncheckedCreateWithoutSurveyInput> & QuestionUncheckedCreateWithoutSurveyInput) | (Without<...> & QuestionCreateWithoutSurveyInput) | QuestionCreateWithoutSurveyInput[] | QuestionUncheckedCreateWithoutSurveyInput[] | undefined'.
+  Type '{ questionText: string; questionOrder: number; answerOptions: { create: { optionText: string; optionLevel: TrainingLevel; }[]; }; }[]' is not assignable to type 'QuestionCreateWithoutSurveyInput[]'.
+    Type '{ questionText: string; questionOrder: number; answerOptions: { create: { optionText: string; optionLevel: TrainingLevel; }[]; }; }' is missing the following properties from type 'QuestionCreateWithoutSurveyInput': question_text, question_order
+
+21           create: questions.map((q) => ({
+             ~~~~~~
+
+src/core/services/users/survey.service.ts:49:16 - error TS2561: Object literal may only specify known properties, but 'submissionUser' does not exist in type 'UserSurveyWhereInput'. Did you mean to write 'submission_user'?
+
+49       where: { submissionUser: userId },
+                  ~~~~~~~~~~~~~~
+
+src/core/services/users/survey.service.ts:63:55 - error TS2339: Property 'survey' does not exist on type '{ submission_id: string; submission_user: string; submission_survey: string; submission_level: TrainingLevel; submission_created_at: Date; submission_updated_at: Date; }'.
+
+63     return surveys.map(s => SurveyEntity.fromPrisma(s.survey));
+                                                         ~~~~~~
+
+
+Found 5 errors in 2 files.
+
+Errors  Files
+     1  src/adapters/api/controllers/users/survey.controller.ts:29
+     4  src/core/services/users/survey.service.ts:2
