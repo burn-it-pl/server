@@ -1,0 +1,124 @@
+src/adapters/api/controllers/users/survey.controller.ts:5:31 - error TS2724: '"../../../../core/services/users/survey.service"' has no exported member named 'getUserSurveysService'. Did you mean 'getSurveyService'?
+
+5 import { createSurveyService, getUserSurveysService } from "../../../../core/services/users/survey.service";
+                                ~~~~~~~~~~~~~~~~~~~~~
+
+  src/core/services/users/survey.service.ts:82:14
+    82 export const getSurveyService = async (surveyId: string): Promise<SurveyEntity> => {
+                    ~~~~~~~~~~~~~~~~
+    'getSurveyService' is declared here.
+
+src/adapters/api/controllers/users/survey.controller.ts:26:24 - error TS2554: Expected 3 arguments, but got 2.
+
+26   const survey = await createSurveyService(userId, req.body.answers);
+                          ~~~~~~~~~~~~~~~~~~~
+
+  src/core/services/users/survey.service.ts:10:3
+     10   questions: Array<{
+          ~~~~~~~~~~~~~~~~~~
+     11     text: string;
+        ~~~~~~~~~~~~~~~~~
+    ... 
+     13     options: Array<{ text: string; level: TrainingLevel }>;
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     14   }>
+        ~~~~
+    An argument for 'questions' was not provided.
+
+src/core/entities/users/survey.entity.ts:2:10 - error TS2300: Duplicate identifier 'Entity'.
+
+2 import { Entity } from "../entity";
+           ~~~~~~
+
+src/core/entities/users/survey.entity.ts:3:10 - error TS2300: Duplicate identifier 'TrainingLevel'.
+
+3 import { TrainingLevel } from "./survey.enum";
+           ~~~~~~~~~~~~~
+
+src/core/entities/users/survey.entity.ts:11:14 - error TS2300: Duplicate identifier 'SurveyEntity'.
+
+11 export class SurveyEntity extends Entity {
+                ~~~~~~~~~~~~
+
+src/core/entities/users/survey.entity.ts:45:12 - error TS2446: Property 'setId' is protected and only accessible through an instance of class 'SurveyEntity'. This is an instance of class 'SurveyEntity'.
+
+45     survey.setId(payload.survey_id);
+              ~~~~~
+
+src/core/entities/users/survey.entity.ts:46:5 - error TS2740: Type 'SurveyEntity' is missing the following properties from type 'SurveyEntity': userId, level, answers, getUserId, and 2 more.
+
+46     return survey;
+       ~~~~~~
+
+src/core/entities/users/survey.entity.ts:49:10 - error TS2300: Duplicate identifier 'Entity'.
+
+49 import { Entity } from "../entity";
+            ~~~~~~
+
+src/core/entities/users/survey.entity.ts:50:10 - error TS2300: Duplicate identifier 'TrainingLevel'.
+
+50 import { TrainingLevel } from "./survey.enum";
+            ~~~~~~~~~~~~~
+
+src/core/entities/users/survey.entity.ts:70:14 - error TS2300: Duplicate identifier 'SurveyEntity'.
+
+70 export class SurveyEntity extends Entity {
+                ~~~~~~~~~~~~
+
+src/core/entities/users/survey.entity.ts:107:5 - error TS2719: Type 'import("/home/runner/workspace/src/core/entities/users/survey.entity").SurveyEntity' is not assignable to type 'import("/home/runner/workspace/src/core/entities/users/survey.entity").SurveyEntity'. Two different types with this name exist, but they are unrelated.
+
+107     return survey;
+        ~~~~~~
+
+src/core/services/users/survey.service.ts:19:9 - error TS2353: Object literal may only specify known properties, and 'survey_title' does not exist in type '(Without<SurveyCreateInput, SurveyUncheckedCreateInput> & SurveyUncheckedCreateInput) | (Without<...> & SurveyCreateInput)'.
+
+19         survey_title: title,
+           ~~~~~~~~~~~~
+
+  node_modules/.prisma/client/index.d.ts:5133:5
+    5133     data: XOR<SurveyCreateInput, SurveyUncheckedCreateInput>
+             ~~~~
+    The expected type comes from property 'data' which is declared here on type '{ select?: SurveySelect<DefaultArgs> | null | undefined; include?: SurveyInclude<DefaultArgs> | null | undefined; data: (Without<...> & SurveyUncheckedCreateInput) | (Without<...> & SurveyCreateInput); }'
+
+src/core/services/users/survey.service.ts:35:9 - error TS2353: Object literal may only specify known properties, and 'questions' does not exist in type 'SurveyInclude<DefaultArgs>'.
+
+35         questions: {
+           ~~~~~~~~~
+
+  node_modules/.prisma/client/index.d.ts:5129:5
+    5129     include?: SurveyInclude<ExtArgs> | null
+             ~~~~~~~
+    The expected type comes from property 'include' which is declared here on type '{ select?: SurveySelect<DefaultArgs> | null | undefined; include?: SurveyInclude<DefaultArgs> | null | undefined; data: (Without<...> & SurveyUncheckedCreateInput) | (Without<...> & SurveyCreateInput); }'
+
+src/core/services/users/survey.service.ts:53:39 - error TS2339: Property 'answerOption' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+
+53     const answerLevels = await client.answerOption.findMany({
+                                         ~~~~~~~~~~~~
+
+src/core/services/users/survey.service.ts:64:62 - error TS7006: Parameter 'a' implicitly has an 'any' type.
+
+64     const finalLevel = determineFinalLevel(answerLevels.map((a) => a.option_level));
+                                                                ~
+
+src/core/services/users/survey.service.ts:66:18 - error TS2339: Property 'userSurvey' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+
+66     await client.userSurvey.create({
+                    ~~~~~~~~~~
+
+src/core/services/users/survey.service.ts:87:9 - error TS2353: Object literal may only specify known properties, and 'questions' does not exist in type 'SurveyInclude<DefaultArgs>'.
+
+87         questions: {
+           ~~~~~~~~~
+
+  node_modules/.prisma/client/index.d.ts:4954:5
+    4954     include?: SurveyInclude<ExtArgs> | null
+             ~~~~~~~
+    The expected type comes from property 'include' which is declared here on type '{ select?: SurveySelect<DefaultArgs> | null | undefined; include?: SurveyInclude<DefaultArgs> | null | undefined; where: SurveyWhereUniqueInput; }'
+
+
+Found 17 errors in 3 files.
+
+Errors  Files
+     2  src/adapters/api/controllers/users/survey.controller.ts:5
+     9  src/core/entities/users/survey.entity.ts:2
+     6  src/core/services/users/survey.service.ts:19
