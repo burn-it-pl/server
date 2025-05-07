@@ -1,0 +1,159 @@
+
+src/app/routes/user.router.ts:3:24 - error TS2395: Individual declarations in merged declaration 'getUserSurveys' must be all exported or all local.
+
+3 import { submitSurvey, getUserSurveys } from './survey.controller'; // Import new controllers
+                         ~~~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:3:46 - error TS2307: Cannot find module './survey.controller' or its corresponding type declarations.
+
+3 import { submitSurvey, getUserSurveys } from './survey.controller'; // Import new controllers
+                                               ~~~~~~~~~~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:4:10 - error TS2395: Individual declarations in merged declaration 'submitSurveyValidation' must be all exported or all local.
+
+4 import { submitSurveyValidation } from './survey.validation'; // Import validation middleware
+           ~~~~~~~~~~~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:4:40 - error TS2307: Cannot find module './survey.validation' or its corresponding type declarations.
+
+4 import { submitSurveyValidation } from './survey.validation'; // Import validation middleware
+                                         ~~~~~~~~~~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:13:23 - error TS2448: Block-scoped variable 'submitSurveyValidation' used before its declaration.
+
+13 user.post("/surveys", submitSurveyValidation, submitSurvey);
+                         ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/routes/user.router.ts:32:14
+    32 export const submitSurveyValidation = (req, res, next) => {
+                    ~~~~~~~~~~~~~~~~~~~~~~
+    'submitSurveyValidation' is declared here.
+
+src/app/routes/user.router.ts:13:23 - error TS2454: Variable 'submitSurveyValidation' is used before being assigned.
+
+13 user.post("/surveys", submitSurveyValidation, submitSurvey);
+                         ~~~~~~~~~~~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:13:47 - error TS2448: Block-scoped variable 'submitSurvey' used before its declaration.
+
+13 user.post("/surveys", submitSurveyValidation, submitSurvey);
+                                                 ~~~~~~~~~~~~
+
+  src/app/routes/user.router.ts:20:14
+    20 export const submitSurvey = (req, res) => {
+                    ~~~~~~~~~~~~
+    'submitSurvey' is declared here.
+
+src/app/routes/user.router.ts:13:47 - error TS2454: Variable 'submitSurvey' is used before being assigned.
+
+13 user.post("/surveys", submitSurveyValidation, submitSurvey);
+                                                 ~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:14:22 - error TS2448: Block-scoped variable 'getUserSurveys' used before its declaration.
+
+14 user.get("/surveys", getUserSurveys);
+                        ~~~~~~~~~~~~~~
+
+  src/app/routes/user.router.ts:25:14
+    25 export const getUserSurveys = (req, res) => {
+                    ~~~~~~~~~~~~~~
+    'getUserSurveys' is declared here.
+
+src/app/routes/user.router.ts:14:22 - error TS2454: Variable 'getUserSurveys' is used before being assigned.
+
+14 user.get("/surveys", getUserSurveys);
+                        ~~~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:20:14 - error TS2395: Individual declarations in merged declaration 'submitSurvey' must be all exported or all local.
+
+20 export const submitSurvey = (req, res) => {
+                ~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:20:30 - error TS6133: 'req' is declared but its value is never read.
+
+20 export const submitSurvey = (req, res) => {
+                                ~~~
+
+src/app/routes/user.router.ts:20:30 - error TS7006: Parameter 'req' implicitly has an 'any' type.
+
+20 export const submitSurvey = (req, res) => {
+                                ~~~
+
+src/app/routes/user.router.ts:20:35 - error TS7006: Parameter 'res' implicitly has an 'any' type.
+
+20 export const submitSurvey = (req, res) => {
+                                     ~~~
+
+src/app/routes/user.router.ts:25:14 - error TS2395: Individual declarations in merged declaration 'getUserSurveys' must be all exported or all local.
+
+25 export const getUserSurveys = (req, res) => {
+                ~~~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:25:32 - error TS6133: 'req' is declared but its value is never read.
+
+25 export const getUserSurveys = (req, res) => {
+                                  ~~~
+
+src/app/routes/user.router.ts:25:32 - error TS7006: Parameter 'req' implicitly has an 'any' type.
+
+25 export const getUserSurveys = (req, res) => {
+                                  ~~~
+
+src/app/routes/user.router.ts:25:37 - error TS7006: Parameter 'res' implicitly has an 'any' type.
+
+25 export const getUserSurveys = (req, res) => {
+                                       ~~~
+
+src/app/routes/user.router.ts:32:14 - error TS2395: Individual declarations in merged declaration 'submitSurveyValidation' must be all exported or all local.
+
+32 export const submitSurveyValidation = (req, res, next) => {
+                ~~~~~~~~~~~~~~~~~~~~~~
+
+src/app/routes/user.router.ts:32:40 - error TS6133: 'req' is declared but its value is never read.
+
+32 export const submitSurveyValidation = (req, res, next) => {
+                                          ~~~
+
+src/app/routes/user.router.ts:32:40 - error TS7006: Parameter 'req' implicitly has an 'any' type.
+
+32 export const submitSurveyValidation = (req, res, next) => {
+                                          ~~~
+
+src/app/routes/user.router.ts:32:45 - error TS6133: 'res' is declared but its value is never read.
+
+32 export const submitSurveyValidation = (req, res, next) => {
+                                               ~~~
+
+src/app/routes/user.router.ts:32:45 - error TS7006: Parameter 'res' implicitly has an 'any' type.
+
+32 export const submitSurveyValidation = (req, res, next) => {
+                                               ~~~
+
+src/app/routes/user.router.ts:32:50 - error TS7006: Parameter 'next' implicitly has an 'any' type.
+
+32 export const submitSurveyValidation = (req, res, next) => {
+                                                    ~~~~
+
+src/core/services/users/survey.service.ts:14:33 - error TS2339: Property 'survey' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+
+14     const survey = await client.survey.create({
+                                   ~~~~~~
+
+src/core/services/users/survey.service.ts:37:34 - error TS2339: Property 'survey' does not exist on type 'PrismaClient<PrismaClientOptions, never, DefaultArgs>'.
+
+37     const surveys = await client.survey.findMany({
+                                    ~~~~~~
+
+src/core/services/users/survey.service.ts:49:25 - error TS7006: Parameter 'survey' implicitly has an 'any' type.
+
+49     return surveys.map((survey) => SurveyEntity.fromPrisma(survey));
+                           ~~~~~~
+
+
+Found 41 errors in 4 files.
+
+Errors  Files
+     2  src/adapters/api/controllers/users/survey.controller.ts:2
+    11  src/adapters/api/validator/index.ts:1
+    25  src/app/routes/user.router.ts:3
+     3  src/core/services/users/survey.service.ts:14

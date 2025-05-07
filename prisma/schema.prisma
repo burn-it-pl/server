@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["multiSchema"]
@@ -15,7 +9,7 @@ datasource db {
   schemas  = ["public", "organizations", "users", "subscriptions"]
 }
 
-// User
+// ENUMS
 enum AuthProvider {
   FIREBASE
 
@@ -33,6 +27,16 @@ enum AuthType {
   @@schema("users")
 }
 
+enum TrainingLevel {
+  BASIC
+  POWER
+  PRO
+
+  @@map(name: "training_level_enum")
+  @@schema("users")
+}
+
+// MODELS
 model User {
   user_id            String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   user_username      String       @db.VarChar(63)
@@ -50,13 +54,12 @@ model User {
 
   user_role_reference Role              @relation(fields: [user_role], references: [role_name], name: "users_roles_fk")
   authTokens          AuthTokenStatus[] @relation(name: "auth_token_statuses_users_fk")
-  surveys            Survey[]
+  surveys             Survey[]          @relation(name: "users_surveys_fk")
 
   @@map(name: "users")
   @@schema("users")
 }
 
-// Roles
 model Role {
   role_id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   role_name       String   @db.VarChar(63)
@@ -70,7 +73,6 @@ model Role {
   @@schema("users")
 }
 
-// AuthTokenStatuses
 model AuthTokenStatus {
   auth_token_id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   auth_token_user            String   @db.Uuid
@@ -85,39 +87,30 @@ model AuthTokenStatus {
   @@schema("users")
 }
 
-enum TrainingLevel {
-  BASIC
-  POWER
-  PRO
-
-  @@map(name: "training_level_enum")
-  @@schema("users")
-}
-
 model Survey {
-  survey_id         String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  survey_user       String       @db.Uuid
+  survey_id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  survey_user       String        @db.Uuid
   survey_level      TrainingLevel
-  survey_created_at DateTime     @default(now()) @db.Timestamptz
-  survey_updated_at DateTime     @default(now()) @db.Timestamptz
+  survey_created_at DateTime      @default(now()) @db.Timestamptz
+  survey_updated_at DateTime      @default(now()) @db.Timestamptz
 
-  user User @relation(fields: [survey_user], references: [user_id], name: "surveys_users_fk")
-  answers SurveyAnswer[]
+  user    User           @relation(name: "users_surveys_fk", fields: [survey_user], references: [user_id])
+  answers SurveyAnswer[] @relation(name: "survey_answers_survey_fk")
 
   @@map(name: "surveys")
   @@schema("users")
 }
 
 model SurveyAnswer {
-  answer_id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  answer_survey     String   @db.Uuid
-  answer_question   String   @db.VarChar(255)
-  answer_value      String   @db.VarChar(255)
+  answer_id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  answer_survey     String        @db.Uuid
+  answer_question   String        @db.VarChar(255)
+  answer_value      String        @db.VarChar(255)
   answer_level      TrainingLevel
-  answer_created_at DateTime @default(now()) @db.Timestamptz
-  answer_updated_at DateTime @default(now()) @db.Timestamptz
+  answer_created_at DateTime      @default(now()) @db.Timestamptz
+  answer_updated_at DateTime      @default(now()) @db.Timestamptz
 
-  survey Survey @relation(fields: [answer_survey], references: [survey_id], name: "survey_answers_survey_fk")
+  survey Survey @relation(name: "survey_answers_survey_fk", fields: [answer_survey], references: [survey_id])
 
   @@map(name: "survey_answers")
   @@schema("users")
