@@ -50,6 +50,7 @@ model User {
 
   user_role_reference Role              @relation(fields: [user_role], references: [role_name], name: "users_roles_fk")
   authTokens          AuthTokenStatus[] @relation(name: "auth_token_statuses_users_fk")
+  surveys            Survey[]
 
   @@map(name: "users")
   @@schema("users")
