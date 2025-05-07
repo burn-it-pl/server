@@ -88,30 +88,78 @@ model AuthTokenStatus {
 }
 
 model Survey {
-  survey_id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  survey_user       String        @db.Uuid
-  survey_level      TrainingLevel
-  survey_created_at DateTime      @default(now()) @db.Timestamptz
-  survey_updated_at DateTime      @default(now()) @db.Timestamptz
-
-  user    User           @relation(name: "users_surveys_fk", fields: [survey_user], references: [user_id])
-  answers SurveyAnswer[] @relation(name: "survey_answers_survey_fk")
+  survey_id          String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  survey_title       String           @db.VarChar(255)
+  survey_description String?          @db.Text
+  survey_created_at  DateTime         @default(now()) @db.Timestamptz
+  survey_updated_at  DateTime         @default(now()) @db.Timestamptz
+  
+  questions     Question[]      @relation(name: "survey_questions_fk")
+  userSubmissions UserSurvey[] @relation(name: "user_surveys_survey_fk")
 
   @@map(name: "surveys")
   @@schema("users")
 }
 
-model SurveyAnswer {
-  answer_id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  answer_survey     String        @db.Uuid
-  answer_question   String        @db.VarChar(255)
-  answer_value      String        @db.VarChar(255)
-  answer_level      TrainingLevel
-  answer_created_at DateTime      @default(now()) @db.Timestamptz
-  answer_updated_at DateTime      @default(now()) @db.Timestamptz
+model Question {
+  question_id          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  question_survey      String        @db.Uuid
+  question_text        String        @db.Text
+  question_order       Int
+  question_created_at  DateTime      @default(now()) @db.Timestamptz
+  question_updated_at  DateTime      @default(now()) @db.Timestamptz
 
-  survey Survey @relation(name: "survey_answers_survey_fk", fields: [answer_survey], references: [survey_id])
+  survey        Survey         @relation(name: "survey_questions_fk", fields: [question_survey], references: [survey_id])
+  answerOptions AnswerOption[] @relation(name: "question_answer_options_fk")
+  userAnswers   UserAnswer[]   @relation(name: "user_answers_question_fk")
 
-  @@map(name: "survey_answers")
+  @@map(name: "questions")
+  @@schema("users")
+}
+
+model AnswerOption {
+  option_id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  option_question   String        @db.Uuid
+  option_text       String        @db.Text
+  option_level      TrainingLevel
+  option_created_at DateTime      @default(now()) @db.Timestamptz
+  option_updated_at DateTime      @default(now()) @db.Timestamptz
+
+  question    Question     @relation(name: "question_answer_options_fk", fields: [option_question], references: [question_id])
+  userAnswers UserAnswer[] @relation(name: "user_answers_option_fk")
+
+  @@map(name: "answer_options")
+  @@schema("users")
+}
+
+model UserSurvey {
+  submission_id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  submission_user      String        @db.Uuid
+  submission_survey    String        @db.Uuid
+  submission_level     TrainingLevel
+  submission_created_at DateTime      @default(now()) @db.Timestamptz
+  submission_updated_at DateTime      @default(now()) @db.Timestamptz
+
+  user    User         @relation(name: "users_surveys_fk", fields: [submission_user], references: [user_id])
+  survey  Survey       @relation(name: "user_surveys_survey_fk", fields: [submission_survey], references: [survey_id])
+  answers UserAnswer[] @relation(name: "user_answers_submission_fk")
+
+  @@map(name: "user_surveys")
+  @@schema("users")
+}
+
+model UserAnswer {
+  answer_id            String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  answer_submission    String   @db.Uuid
+  answer_question      String   @db.Uuid
+  answer_selected_option String @db.Uuid
+  answer_created_at    DateTime @default(now()) @db.Timestamptz
+  answer_updated_at    DateTime @default(now()) @db.Timestamptz
+
+  submission    UserSurvey   @relation(name: "user_answers_submission_fk", fields: [answer_submission], references: [submission_id])
+  question      Question     @relation(name: "user_answers_question_fk", fields: [answer_question], references: [question_id])
+  selectedOption AnswerOption @relation(name: "user_answers_option_fk", fields: [answer_selected_option], references: [option_id])
+
+  @@map(name: "user_answers")
   @@schema("users")
 }
