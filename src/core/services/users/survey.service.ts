@@ -112,7 +112,7 @@ export const getQuestionsService = async (
         where,
         skip: start,
         take: end - start,
-        orderBy: { [sortField]: sortOrder.toLowerCase() },
+        orderBy: { [`question_${sortField}`]: sortOrder.toLowerCase() },
         include: { answerOptions: true }
       }),
       client.question.count({ where })
