@@ -1,0 +1,53 @@
+
+> BurnItServer@1.0.0 start:dev
+> npm run build && nodemon ./build/src/app/server.js
+> BurnItServer@1.0.0 build
+> tsc
+
+src/adapters/api/controllers/users/survey.controller.ts:3:1 - error TS6133: 'TrainingLevel' is declared but its value is never read.
+
+3 import { TrainingLevel } from '../../../../core/entities/users/survey.enum';
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:5:3 - error TS2724: '"../../../../core/services/users/survey.service"' has no exported member named 'createSurveyService'. Did you mean 'getSurveysService'?
+
+5   createSurveyService,
+    ~~~~~~~~~~~~~~~~~~~
+
+  src/core/services/users/survey.service.ts:7:14
+    7 export const getSurveysService = async (
+                   ~~~~~~~~~~~~~~~~~
+    'getSurveysService' is declared here.
+
+src/adapters/api/controllers/users/survey.controller.ts:7:3 - error TS2724: '"../../../../core/services/users/survey.service"' has no exported member named 'getSurveyByIdService'. Did you mean 'getSurveysService'?
+
+7   getSurveyByIdService,
+    ~~~~~~~~~~~~~~~~~~~~
+
+  src/core/services/users/survey.service.ts:7:14
+    7 export const getSurveysService = async (
+                   ~~~~~~~~~~~~~~~~~
+    'getSurveysService' is declared here.
+
+src/adapters/api/controllers/users/survey.controller.ts:8:3 - error TS2305: Module '"../../../../core/services/users/survey.service"' has no exported member 'updateSurveyService'.
+
+8   updateSurveyService,
+    ~~~~~~~~~~~~~~~~~~~
+
+src/adapters/api/controllers/users/survey.controller.ts:9:3 - error TS2724: '"../../../../core/services/users/survey.service"' has no exported member named 'deleteSurveyService'. Did you mean 'getSurveysService'?
+
+9   deleteSurveyService,
+    ~~~~~~~~~~~~~~~~~~~
+
+  src/core/services/users/survey.service.ts:7:14
+    7 export const getSurveysService = async (
+                   ~~~~~~~~~~~~~~~~~
+    'getSurveysService' is declared here.
+
+src/adapters/api/controllers/users/survey.controller.ts:22:11 - error TS6196: 'AuthenticatedRequest' is declared but never used.
+
+22 interface AuthenticatedRequest extends Request {
+             ~~~~~~~~~~~~~~~~~~~~
+
+
+Found 6 errors in the same file, starting at: src/adapters/api/controllers/users/survey.controller.ts:3
